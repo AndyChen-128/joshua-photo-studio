@@ -3,75 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joshua Photo Studio</title>
+    <title>Joshua Photo Studio | Coming Soon</title>
     <style>
+        /* 1. 设置全屏背景 */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            height: 100vh; /* 填满视口高度 */
+            width: 100%;
+            /* 替换为你的背景图片文件名 */
+            background-image: url('josa2.jpg');
+            background-size: cover; /* 永远填满背景 */
+            background-position: center; /* 居中 */
+            background-repeat: no-repeat;
+            display: flex; /* 使用 Flexbox 居中内容 */
+            align-items: center; /* 垂直居中 */
+            justify-content: center; /* 水平居中 */
+            position: relative;
         }
 
-        .container {
+        /* 2. 添加一个暗色蒙版，防止背景图过亮看不清内容 */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); /* 0.2 表示 20% 的透明度 */
+            z-index: 1; /* 在背景和内容之间 */
+        }
+
+        /* 3. 居中的内容容器 */
+        .content {
             text-align: center;
-            max-width: 600px;
-            padding: 20px;
+            color: #fff;
+            position: relative; /* 防止被蒙版覆盖 */
+            z-index: 2; /* 在蒙版之上 */
+            max-width: 80%;
         }
 
-        /* Logo 样式 */
+        /* 4. Logo 样式 (改为白色并居中) */
         .logo {
-            width: 120px; /* 如果Logo太大或太小，修改这个数字 */
+            width: 150px; /* 如果Logo太小，调整这个数字 */
             height: auto;
             margin-bottom: 30px;
+            /* **关键步骤**：强制 SVG 变为白色 */
+            filter: brightness(0) invert(1);
         }
 
-        /* 主图样式 */
-        .main-pic {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
-        }
-
-        /* 社交媒体区域样式 */
+        /* 5. 社交媒体区域样式 (一字排开) */
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px; /* 链接之间的间距 */
             margin-top: 20px;
         }
 
+        /* 6. 社交链接样式 (改为白色、无下划线) */
         .social-item {
             text-decoration: none;
-            color: #666;
+            color: rgba(255, 255, 255, 0.8); /* 初始为半透明白色 */
             font-size: 16px;
             font-weight: 500;
+            letter-spacing: 1px; /* 增加字间距 */
             transition: color 0.3s;
         }
 
+        /* 7. 鼠标悬停效果 (全白) */
         .social-item:hover {
-            color: #000; /* 鼠标悬停时变成黑色 */
+            color: rgba(255, 255, 255, 1);
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="content">
         <img src="logo.svg" alt="Joshua Photo Studio Logo" class="logo">
 
-        <img src="josa28.jpg" alt="Featured Work" class="main-pic">
-
         <div class="social-links">
-            <a href="https://www.instagram.com/joshua.photo.studio/" target="_blank" class="social-item">Instagram</a>
-            <a href="https://www.xiaohongshu.com/user/profile/632ea5c30000000023038f96?xsec_token=ABR3XxIfqZKJaPG0SS8QwankoJWK-riGyr7Jdo4RRy3ok%3D&xsec_source=pc_search" target="_blank" class="social-item">小红书</a>
-            <a href="mailto:fiworkjoshua@gmail.com" class="social-item">Email</a>
+            <a href="https://instagram.com/你的账号" target="_blank" class="social-item">Instagram</a>
+            <a href="https://xhs.com/你的账号" target="_blank" class="social-item">小红书</a>
+            <a href="mailto:你的邮箱@example.com" class="social-item">Email</a>
         </div>
     </div>
 
