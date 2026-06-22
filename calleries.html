@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calleries | Joshua Photo Studio</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: #F1F2EF;
+            color: #1f1f1f;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 34px 0;
+            display: flex;
+            justify-content: center;
+            gap: 42px;
+            z-index: 20;
+            background: rgba(241, 242, 239, 0.72);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: rgba(31, 31, 31, 0.75);
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: color 0.3s ease, letter-spacing 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: #1f1f1f;
+            letter-spacing: 1.8px;
+        }
+
+        .page {
+            width: 100%;
+            padding: 145px 28px 100px;
+        }
+
+        .header {
+            max-width: 900px;
+            margin: 0 auto 90px;
+            text-align: center;
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            color: rgba(31, 31, 31, 0.45);
+            margin-bottom: 26px;
+            text-transform: uppercase;
+        }
+
+        .page-title {
+            margin: 0;
+            font-size: 72px;
+            font-weight: 300;
+            line-height: 1;
+            letter-spacing: -2px;
+        }
+
+        .intro-text {
+            margin: 24px auto 0;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(31, 31, 31, 0.42);
+        }
+
+        .masonry {
+            max-width: 1320px;
+            margin: 0 auto;
+            column-count: 3;
+            column-gap: 26px;
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 26px;
+        }
+
+        .frame {
+            background: rgba(255, 255, 255, 0.72);
+            padding: 10px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.06);
+            transition: transform 0.7s ease, box-shadow 0.7s ease;
+        }
+
+        .frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 1s ease, filter 1s ease, opacity 0.6s ease;
+        }
+
+        .masonry-item:hover .frame {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 42px rgba(0, 0, 0, 0.1);
+        }
+
+        .masonry-item:hover img {
+            transform: scale(1.02);
+            filter: saturate(0.95) contrast(1.02);
+        }
+
+        .masonry-item:nth-child(3n + 2) {
+            margin-top: 42px;
+        }
+
+        .masonry-item:nth-child(5n + 3) {
+            margin-top: 18px;
+        }
+
+        .masonry-item:nth-child(7n + 4) {
+            margin-top: 56px;
+        }
+
+        .caption {
+            margin-top: 10px;
+            font-size: 11px;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            color: rgba(31, 31, 31, 0.42);
+            text-align: left;
+        }
+
+        @media (max-width: 1100px) {
+            .masonry {
+                column-count: 2;
+            }
+
+            .page-title {
+                font-size: 58px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                gap: 22px;
+                padding: 28px 0;
+            }
+
+            .nav a {
+                font-size: 13px;
+                letter-spacing: 0.8px;
+            }
+
+            .page {
+                padding: 120px 18px 80px;
+            }
+
+            .header {
+                margin-bottom: 56px;
+            }
+
+            .page-title {
+                font-size: 46px;
+                letter-spacing: -1px;
+            }
+
+            .intro-text {
+                font-size: 12px;
+                letter-spacing: 1.4px;
+            }
+
+            .masonry {
+                column-count: 1;
+                column-gap: 0;
+            }
+
+            .masonry-item,
+            .masonry-item:nth-child(3n + 2),
+            .masonry-item:nth-child(5n + 3),
+            .masonry-item:nth-child(7n + 4) {
+                margin-top: 0;
+                margin-bottom: 22px;
+            }
+
+            .frame {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="nav">
+        <a href="index.html">HOME</a>
+        <a href="about.html">ABOUT</a>
+        <a href="contact.html">CONTACT</a>
+    </nav>
+
+    <main class="page">
+
+        <section class="header">
+            <div class="eyebrow">CALLERIES</div>
+            <h1 class="page-title">Selected Work</h1>
+            <p class="intro-text">A Visual Journal</p>
+        </section>
+
+        <section class="masonry">
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-1.jpg" alt="Gallery image 1"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-2.jpg" alt="Gallery image 2"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-3.jpg" alt="Gallery image 3"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-4.jpg" alt="Gallery image 4"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-5.jpg" alt="Gallery image 5"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-6.jpg" alt="Gallery image 6"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-7.jpg" alt="Gallery image 7"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-8.jpg" alt="Gallery image 8"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-9.jpg" alt="Gallery image 9"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-10.jpg" alt="Gallery image 10"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-11.jpg" alt="Gallery image 11"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-12.jpg" alt="Gallery image 12"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-13.jpg" alt="Gallery image 13"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-14.jpg" alt="Gallery image 14"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-15.jpg" alt="Gallery image 15"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-16.jpg" alt="Gallery image 16"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-17.jpg" alt="Gallery image 17"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-18.jpg" alt="Gallery image 18"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-19.jpg" alt="Gallery image 19"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-20.jpg" alt="Gallery image 20"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-21.jpg" alt="Gallery image 21"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-22.jpg" alt="Gallery image 22"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-23.jpg" alt="Gallery image 23"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-24.jpg" alt="Gallery image 24"></div></div>
+            <div class="masonry-item"><div class="frame"><img src="images/gallery-25.jpg" alt="Gallery image 25"></div></div>
+        </section>
+
+    </main>
+
+</body>
+</html>
