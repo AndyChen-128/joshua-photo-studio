@@ -23,6 +23,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-user-select: none;
             user-select: none;
+            -webkit-touch-callout: none;
         }
 
         .nav {
@@ -37,6 +38,7 @@
             z-index: 20;
             background: rgba(241, 242, 239, 0.78);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .nav a {
@@ -55,12 +57,12 @@
 
         .page {
             width: 100%;
-            padding: 145px 32px 120px;
+            padding: 150px 34px 130px;
         }
 
         .header {
             max-width: 900px;
-            margin: 0 auto 95px;
+            margin: 0 auto 96px;
             text-align: center;
         }
 
@@ -94,13 +96,21 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            column-gap: 36px;
-            row-gap: 48px;
+            grid-auto-rows: 8px;
+            grid-auto-flow: dense;
+            column-gap: 38px;
+            row-gap: 42px;
             align-items: start;
         }
 
         .gallery-item {
             width: 100%;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .gallery-item.loaded {
+            opacity: 1;
         }
 
         .gallery-item img {
@@ -112,45 +122,41 @@
             user-drag: none;
         }
 
-        .gallery-item.small {
-            width: 90%;
-        }
-
-        .gallery-item.left {
-            justify-self: start;
-        }
-
-        .gallery-item.right {
-            justify-self: end;
-        }
-
         .gallery-item.wide {
-            grid-column: span 2;
-            width: 88%;
-            margin: 14px auto;
+            grid-column: 1 / -1;
         }
 
         .gallery-item.feature {
-            grid-column: span 2;
-            width: 72%;
-            margin: 22px auto;
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
         }
 
-        @media (max-width: 900px) {
+        .gallery-item.feature img {
+            width: 76%;
+        }
+
+        .gallery-item.soft-left img {
+            width: 92%;
+            margin-right: auto;
+        }
+
+        .gallery-item.soft-right img {
+            width: 92%;
+            margin-left: auto;
+        }
+
+        @media (max-width: 1000px) {
             .page-title {
                 font-size: 58px;
             }
 
             .gallery {
-                column-gap: 26px;
-                row-gap: 38px;
+                column-gap: 28px;
+                row-gap: 34px;
             }
 
-            .gallery-item.wide {
-                width: 94%;
-            }
-
-            .gallery-item.feature {
+            .gallery-item.feature img {
                 width: 84%;
             }
         }
@@ -171,7 +177,7 @@
             }
 
             .header {
-                margin-bottom: 56px;
+                margin-bottom: 58px;
             }
 
             .page-title {
@@ -189,13 +195,20 @@
             }
 
             .gallery-item,
-            .gallery-item.small,
-            .gallery-item.left,
-            .gallery-item.right,
             .gallery-item.wide,
-            .gallery-item.feature {
+            .gallery-item.feature,
+            .gallery-item.soft-left,
+            .gallery-item.soft-right {
                 width: 100%;
                 margin: 0 0 28px;
+                opacity: 1;
+            }
+
+            .gallery-item.feature img,
+            .gallery-item.soft-left img,
+            .gallery-item.soft-right img {
+                width: 100%;
+                margin: 0;
             }
         }
     </style>
@@ -223,38 +236,41 @@
 
     <script>
         const gallery = document.getElementById('gallery');
+        const maxImages = 60;
 
-        for (let i = 1; i <= 60; i++) {
+        for (let i = 1; i <= maxImages; i++) {
             const item = document.createElement('div');
+            const img = document.createElement('img');
+
             item.className = 'gallery-item';
 
-            const img = document.createElement('img');
             img.src = `images/gallery-${i}.jpg`;
             img.alt = `Gallery image ${i}`;
             img.draggable = false;
 
-            if (i % 2 === 1) {
-                item.classList.add('left');
-            } else {
-                item.classList.add('right');
+            if (i % 4 === 1) {
+                item.classList.add('soft-left');
             }
 
-            if ([1, 2, 7, 8, 13, 14, 19, 20, 25, 26, 31, 32, 37, 38, 43, 44, 49, 50, 55, 56].includes(i)) {
-                item.classList.add('small');
+            if (i % 4 === 2) {
+                item.classList.add('soft-right');
             }
 
-            if ([6, 12, 18, 24, 30, 36, 42, 48, 54, 60].includes(i)) {
+            if ([9, 18, 27, 36, 45, 54].includes(i)) {
                 item.classList.add('feature');
-                item.classList.remove('small', 'left', 'right');
+                item.classList.remove('soft-left', 'soft-right');
             }
 
             img.onload = function() {
                 const ratio = img.naturalWidth / img.naturalHeight;
 
-                if (ratio > 1.25) {
+                if (ratio > 1.22) {
                     item.classList.add('wide');
-                    item.classList.remove('small', 'left', 'right', 'feature');
+                    item.classList.remove('feature', 'soft-left', 'soft-right');
                 }
+
+                item.classList.add('loaded');
+                resizeGridItem(item);
             };
 
             img.onerror = function() {
@@ -264,6 +280,32 @@
             item.appendChild(img);
             gallery.appendChild(item);
         }
+
+        function resizeGridItem(item) {
+            if (window.innerWidth <= 768) return;
+
+            const rowHeight = parseInt(window.getComputedStyle(gallery).getPropertyValue('grid-auto-rows'));
+            const rowGap = parseInt(window.getComputedStyle(gallery).getPropertyValue('row-gap'));
+            const img = item.querySelector('img');
+
+            requestAnimationFrame(function() {
+                const height = img.getBoundingClientRect().height;
+                const rowSpan = Math.ceil((height + rowGap) / (rowHeight + rowGap));
+                item.style.gridRowEnd = `span ${rowSpan}`;
+            });
+        }
+
+        function resizeAllGridItems() {
+            const items = document.querySelectorAll('.gallery-item.loaded');
+
+            items.forEach(function(item) {
+                resizeGridItem(item);
+            });
+        }
+
+        window.addEventListener('resize', function() {
+            resizeAllGridItems();
+        });
 
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
