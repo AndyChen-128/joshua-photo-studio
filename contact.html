@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Joshua Photo Studio</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #F1F2EF;
+            color: #1f1f1f;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .nav {
+            width: 100%;
+            padding: 34px 0;
+            display: flex;
+            justify-content: center;
+            gap: 42px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: rgba(31, 31, 31, 0.75);
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: color 0.3s ease, letter-spacing 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: #1f1f1f;
+            letter-spacing: 1.8px;
+        }
+
+        .page {
+            min-height: calc(100vh - 100px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 70px 32px 120px;
+        }
+
+        .contact-layout {
+            width: 100%;
+            max-width: 1080px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 90px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 2.6px;
+            color: rgba(31, 31, 31, 0.5);
+            margin-bottom: 28px;
+        }
+
+        .contact-title {
+            font-size: 72px;
+            font-weight: 300;
+            line-height: 1.05;
+            letter-spacing: -1px;
+            margin: 0 0 36px;
+        }
+
+        .contact-text {
+            max-width: 520px;
+            font-size: 17px;
+            line-height: 2;
+            color: rgba(31, 31, 31, 0.72);
+            margin: 0;
+        }
+
+        .contact-panel {
+            border-top: 1px solid rgba(31, 31, 31, 0.22);
+        }
+
+        .contact-row {
+            display: block;
+            text-decoration: none;
+            color: #1f1f1f;
+            padding: 28px 0;
+            border-bottom: 1px solid rgba(31, 31, 31, 0.22);
+            transition: padding-left 0.35s ease, opacity 0.35s ease;
+        }
+
+        .contact-row:hover {
+            padding-left: 14px;
+            opacity: 0.7;
+        }
+
+        .contact-row-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .contact-name {
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1.6px;
+        }
+
+        .contact-arrow {
+            font-size: 22px;
+            font-weight: 300;
+        }
+
+        .contact-detail {
+            margin-top: 10px;
+            font-size: 14px;
+            letter-spacing: 0.4px;
+            color: rgba(31, 31, 31, 0.55);
+        }
+
+        .note {
+            margin-top: 36px;
+            font-size: 13px;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+            color: rgba(31, 31, 31, 0.5);
+        }
+
+        @media (max-width: 900px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .contact-title {
+                font-size: 58px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                gap: 22px;
+                padding: 28px 0;
+            }
+
+            .nav a {
+                font-size: 13px;
+                letter-spacing: 0.8px;
+            }
+
+            .page {
+                padding: 48px 24px 90px;
+                align-items: flex-start;
+            }
+
+            .contact-layout {
+                gap: 50px;
+            }
+
+            .contact-title {
+                font-size: 46px;
+                margin-bottom: 28px;
+            }
+
+            .contact-text {
+                font-size: 15px;
+                line-height: 1.9;
+            }
+
+            .contact-row {
+                padding: 24px 0;
+            }
+
+            .contact-name {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="nav">
+        <a href="index.html">HOME</a>
+        <a href="about.html">ABOUT</a>
+        <a href="calleries.html">CALLERIES</a>
+    </nav>
+
+    <main class="page">
+        <section class="contact-layout">
+
+            <div class="contact-intro">
+                <div class="eyebrow">CONTACT</div>
+
+                <h1 class="contact-title">
+                    Let’s create<br>
+                    something<br>
+                    timeless.
+                </h1>
+
+                <p class="contact-text">
+                    For wedding, portrait, couple, or editorial photography inquiries, please reach out through email or social media.
+                </p>
+            </div>
+
+            <div>
+                <div class="contact-panel">
+                    <a href="mailto:fiworkjoshua@gmail.com?subject=Photography Inquiry" class="contact-row">
+                        <div class="contact-row-top">
+                            <div class="contact-name">EMAIL</div>
+                            <div class="contact-arrow">→</div>
+                        </div>
+                        <div class="contact-detail">fiworkjoshua@gmail.com</div>
+                    </a>
+
+                    <a href="https://instagram.com/joshua.photo.studio/" target="_blank" rel="noopener noreferrer" class="contact-row">
+                        <div class="contact-row-top">
+                            <div class="contact-name">INSTAGRAM</div>
+                            <div class="contact-arrow">→</div>
+                        </div>
+                        <div class="contact-detail">@joshua.photo.studio</div>
+                    </a>
+
+                    <a href="https://xhslink.com/m/3jYdLtK2ZA2" target="_blank" rel="noopener noreferrer" class="contact-row">
+                        <div class="contact-row-top">
+                            <div class="contact-name">REDNOTE</div>
+                            <div class="contact-arrow">→</div>
+                        </div>
+                        <div class="contact-detail">Follow Joshua Photo Studio on Rednote</div>
+                    </a>
+                </div>
+
+                <p class="note">
+                    Based in Italy. Available for selected photography projects, weddings, portraits, and visual storytelling.
+                </p>
+            </div>
+
+        </section>
+    </main>
+
+</body>
+</html>
