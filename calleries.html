@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calleries | Joshua Photo Studio</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-</head>
+
     <style>
         * {
             box-sizing: border-box;
@@ -25,6 +24,10 @@
             -webkit-user-select: none;
             user-select: none;
             -webkit-touch-callout: none;
+        }
+
+        body.no-scroll {
+            overflow: hidden;
         }
 
         .nav {
@@ -106,6 +109,7 @@
         .archive-item {
             opacity: 0;
             transition: opacity 0.5s ease;
+            cursor: pointer;
         }
 
         .archive-item.loaded {
@@ -160,6 +164,89 @@
 
         .archive-item.soft-gap {
             margin-top: 34px;
+        }
+
+        /* 全屏图片浏览 */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 15, 15, 0.94);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-image {
+            max-width: 92vw;
+            max-height: 88vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            pointer-events: none;
+            -webkit-user-drag: none;
+            user-drag: none;
+        }
+
+        .lightbox-close,
+        .lightbox-prev,
+        .lightbox-next {
+            position: fixed;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.78);
+            cursor: pointer;
+            z-index: 1001;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            transition: color 0.25s ease, opacity 0.25s ease;
+        }
+
+        .lightbox-close:hover,
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
+            color: #ffffff;
+        }
+
+        .lightbox-close {
+            top: 28px;
+            right: 34px;
+            font-size: 32px;
+            line-height: 1;
+        }
+
+        .lightbox-prev,
+        .lightbox-next {
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 46px;
+            font-weight: 200;
+            padding: 24px;
+        }
+
+        .lightbox-prev {
+            left: 26px;
+        }
+
+        .lightbox-next {
+            right: 26px;
+        }
+
+        .lightbox-counter {
+            position: fixed;
+            left: 50%;
+            bottom: 28px;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.56);
+            font-size: 12px;
+            letter-spacing: 1.6px;
+            z-index: 1001;
         }
 
         @media (max-width: 1000px) {
@@ -244,6 +331,35 @@
             .archive-item.full img {
                 width: 100%;
             }
+
+            .lightbox-image {
+                max-width: 92vw;
+                max-height: 82vh;
+            }
+
+            .lightbox-close {
+                top: 22px;
+                right: 24px;
+                font-size: 30px;
+            }
+
+            .lightbox-prev,
+            .lightbox-next {
+                font-size: 38px;
+                padding: 16px;
+            }
+
+            .lightbox-prev {
+                left: 4px;
+            }
+
+            .lightbox-next {
+                right: 4px;
+            }
+
+            .lightbox-counter {
+                bottom: 22px;
+            }
         }
     </style>
 </head>
@@ -268,9 +384,25 @@
 
     </main>
 
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
+        <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous">‹</button>
+        <img class="lightbox-image" id="lightboxImage" src="" alt="">
+        <button class="lightbox-next" id="lightboxNext" aria-label="Next">›</button>
+        <div class="lightbox-counter" id="lightboxCounter"></div>
+    </div>
+
     <script>
         const archiveGrid = document.getElementById('archiveGrid');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        const lightboxCounter = document.getElementById('lightboxCounter');
+
         const maxImages = 120;
+        let currentIndex = 0;
 
         const layoutPattern = [
             'left',
@@ -300,6 +432,7 @@
             const patternClass = layoutPattern[(i - 1) % layoutPattern.length];
 
             item.className = 'archive-item ' + patternClass;
+            item.dataset.number = i;
 
             img.src = `images/gallery-${i}.jpg`;
             img.alt = `Gallery image ${i}`;
@@ -327,9 +460,102 @@
                 item.remove();
             };
 
+            item.addEventListener('click', function() {
+                openLightboxBySrc(img.src);
+            });
+
             item.appendChild(img);
             archiveGrid.appendChild(item);
         }
+
+        function getLoadedImages() {
+            return Array.from(document.querySelectorAll('.archive-item.loaded img'));
+        }
+
+        function openLightboxBySrc(src) {
+            const images = getLoadedImages();
+
+            currentIndex = images.findIndex(function(img) {
+                return img.src === src;
+            });
+
+            if (currentIndex < 0) {
+                currentIndex = 0;
+            }
+
+            updateLightbox();
+            lightbox.classList.add('active');
+            document.body.classList.add('no-scroll');
+        }
+
+        function updateLightbox() {
+            const images = getLoadedImages();
+
+            if (images.length === 0) return;
+
+            if (currentIndex < 0) {
+                currentIndex = images.length - 1;
+            }
+
+            if (currentIndex >= images.length) {
+                currentIndex = 0;
+            }
+
+            lightboxImage.src = images[currentIndex].src;
+            lightboxImage.alt = images[currentIndex].alt;
+            lightboxCounter.textContent = String(currentIndex + 1).padStart(2, '0') + ' / ' + String(images.length).padStart(2, '0');
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+            lightboxImage.src = '';
+        }
+
+        function showPrev() {
+            currentIndex--;
+            updateLightbox();
+        }
+
+        function showNext() {
+            currentIndex++;
+            updateLightbox();
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', showPrev);
+        lightboxNext.addEventListener('click', showNext);
+
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                }
+
+                if (e.key === 'ArrowLeft') {
+                    showPrev();
+                }
+
+                if (e.key === 'ArrowRight') {
+                    showNext();
+                }
+            }
+
+            if (
+                e.key === 'F12' ||
+                (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) ||
+                (e.ctrlKey && e.key.toUpperCase() === 'U') ||
+                (e.metaKey && e.altKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))
+            ) {
+                e.preventDefault();
+            }
+        });
 
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
@@ -341,17 +567,6 @@
 
         document.addEventListener('selectstart', function(e) {
             e.preventDefault();
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (
-                e.key === 'F12' ||
-                (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) ||
-                (e.ctrlKey && e.key.toUpperCase() === 'U') ||
-                (e.metaKey && e.altKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))
-            ) {
-                e.preventDefault();
-            }
         });
     </script>
 
