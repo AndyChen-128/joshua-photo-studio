@@ -10,6 +10,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -17,6 +21,8 @@
             background-color: #F1F2EF;
             color: #1f1f1f;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         .nav {
@@ -29,7 +35,7 @@
             justify-content: center;
             gap: 42px;
             z-index: 20;
-            background: rgba(241, 242, 239, 0.72);
+            background: rgba(241, 242, 239, 0.78);
             backdrop-filter: blur(12px);
         }
 
@@ -84,12 +90,12 @@
         }
 
         .gallery {
-            max-width: 1260px;
+            max-width: 1180px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            column-gap: 34px;
-            row-gap: 58px;
+            column-gap: 36px;
+            row-gap: 48px;
             align-items: start;
         }
 
@@ -101,43 +107,33 @@
             width: 100%;
             height: auto;
             display: block;
+            pointer-events: none;
+            -webkit-user-drag: none;
+            user-drag: none;
+        }
+
+        .gallery-item.small {
+            width: 90%;
+        }
+
+        .gallery-item.left {
+            justify-self: start;
+        }
+
+        .gallery-item.right {
+            justify-self: end;
         }
 
         .gallery-item.wide {
             grid-column: span 2;
-            width: 82%;
-            margin: 18px auto 10px;
-        }
-
-        .gallery-item.narrow-left {
-            width: 84%;
-            justify-self: start;
-        }
-
-        .gallery-item.narrow-right {
-            width: 84%;
-            justify-self: end;
-        }
-
-        .gallery-item.offset-small {
-            margin-top: 42px;
-        }
-
-        .gallery-item.offset-large {
-            margin-top: 86px;
+            width: 88%;
+            margin: 14px auto;
         }
 
         .gallery-item.feature {
             grid-column: span 2;
-            width: 68%;
-            margin: 28px auto 18px;
-        }
-
-        .image-number {
-            margin-top: 10px;
-            font-size: 11px;
-            letter-spacing: 1.8px;
-            color: rgba(31, 31, 31, 0.36);
+            width: 72%;
+            margin: 22px auto;
         }
 
         @media (max-width: 900px) {
@@ -146,16 +142,16 @@
             }
 
             .gallery {
-                column-gap: 24px;
-                row-gap: 46px;
+                column-gap: 26px;
+                row-gap: 38px;
             }
 
             .gallery-item.wide {
-                width: 90%;
+                width: 94%;
             }
 
             .gallery-item.feature {
-                width: 82%;
+                width: 84%;
             }
         }
 
@@ -193,12 +189,11 @@
             }
 
             .gallery-item,
+            .gallery-item.small,
+            .gallery-item.left,
+            .gallery-item.right,
             .gallery-item.wide,
-            .gallery-item.feature,
-            .gallery-item.narrow-left,
-            .gallery-item.narrow-right,
-            .gallery-item.offset-small,
-            .gallery-item.offset-large {
+            .gallery-item.feature {
                 width: 100%;
                 margin: 0 0 28px;
             }
@@ -206,7 +201,7 @@
     </style>
 </head>
 
-<body>
+<body oncontextmenu="return false;">
 
     <nav class="nav">
         <a href="index.html">HOME</a>
@@ -222,148 +217,75 @@
             <p class="intro-text">A Visual Journal</p>
         </section>
 
-        <section class="gallery">
-            <div class="gallery-item narrow-left">
-                <img src="images/gallery-1.jpg" alt="Gallery image 1">
-                <div class="image-number">01</div>
-            </div>
-
-            <div class="gallery-item narrow-right offset-small">
-                <img src="images/gallery-2.jpg" alt="Gallery image 2">
-                <div class="image-number">02</div>
-            </div>
-
-            <div class="gallery-item wide">
-                <img src="images/gallery-3.jpg" alt="Gallery image 3">
-                <div class="image-number">03</div>
-            </div>
-
-            <div class="gallery-item offset-small">
-                <img src="images/gallery-4.jpg" alt="Gallery image 4">
-                <div class="image-number">04</div>
-            </div>
-
-            <div class="gallery-item offset-large">
-                <img src="images/gallery-5.jpg" alt="Gallery image 5">
-                <div class="image-number">05</div>
-            </div>
-
-            <div class="gallery-item narrow-left">
-                <img src="images/gallery-6.jpg" alt="Gallery image 6">
-                <div class="image-number">06</div>
-            </div>
-
-            <div class="gallery-item narrow-right offset-small">
-                <img src="images/gallery-7.jpg" alt="Gallery image 7">
-                <div class="image-number">07</div>
-            </div>
-
-            <div class="gallery-item feature">
-                <img src="images/gallery-8.jpg" alt="Gallery image 8">
-                <div class="image-number">08</div>
-            </div>
-
-            <div class="gallery-item offset-large">
-                <img src="images/gallery-9.jpg" alt="Gallery image 9">
-                <div class="image-number">09</div>
-            </div>
-
-            <div class="gallery-item">
-                <img src="images/gallery-10.jpg" alt="Gallery image 10">
-                <div class="image-number">10</div>
-            </div>
-
-            <div class="gallery-item wide">
-                <img src="images/gallery-11.jpg" alt="Gallery image 11">
-                <div class="image-number">11</div>
-            </div>
-
-            <div class="gallery-item narrow-left offset-small">
-                <img src="images/gallery-12.jpg" alt="Gallery image 12">
-                <div class="image-number">12</div>
-            </div>
-
-            <div class="gallery-item narrow-right">
-                <img src="images/gallery-13.jpg" alt="Gallery image 13">
-                <div class="image-number">13</div>
-            </div>
-
-            <div class="gallery-item">
-                <img src="images/gallery-14.jpg" alt="Gallery image 14">
-                <div class="image-number">14</div>
-            </div>
-
-            <div class="gallery-item offset-large">
-                <img src="images/gallery-15.jpg" alt="Gallery image 15">
-                <div class="image-number">15</div>
-            </div>
-
-            <div class="gallery-item feature">
-                <img src="images/gallery-16.jpg" alt="Gallery image 16">
-                <div class="image-number">16</div>
-            </div>
-
-            <div class="gallery-item narrow-left">
-                <img src="images/gallery-17.jpg" alt="Gallery image 17">
-                <div class="image-number">17</div>
-            </div>
-
-            <div class="gallery-item narrow-right offset-small">
-                <img src="images/gallery-18.jpg" alt="Gallery image 18">
-                <div class="image-number">18</div>
-            </div>
-
-            <div class="gallery-item wide">
-                <img src="images/gallery-19.jpg" alt="Gallery image 19">
-                <div class="image-number">19</div>
-            </div>
-
-            <div class="gallery-item offset-large">
-                <img src="images/gallery-20.jpg" alt="Gallery image 20">
-                <div class="image-number">20</div>
-            </div>
-
-            <div class="gallery-item">
-                <img src="images/gallery-21.jpg" alt="Gallery image 21">
-                <div class="image-number">21</div>
-            </div>
-
-            <div class="gallery-item feature">
-                <img src="images/gallery-22.jpg" alt="Gallery image 22">
-                <div class="image-number">22</div>
-            </div>
-
-            <div class="gallery-item narrow-left offset-small">
-                <img src="images/gallery-23.jpg" alt="Gallery image 23">
-                <div class="image-number">23</div>
-            </div>
-
-            <div class="gallery-item narrow-right">
-                <img src="images/gallery-24.jpg" alt="Gallery image 24">
-                <div class="image-number">24</div>
-            </div>
-
-            <div class="gallery-item wide">
-                <img src="images/gallery-25.jpg" alt="Gallery image 25">
-                <div class="image-number">25</div>
-            </div>
-        </section>
+        <section class="gallery" id="gallery"></section>
 
     </main>
 
     <script>
-        const images = document.querySelectorAll('.gallery-item img');
+        const gallery = document.getElementById('gallery');
 
-        images.forEach(function(img) {
-            img.addEventListener('load', function() {
-                const item = img.closest('.gallery-item');
+        for (let i = 1; i <= 60; i++) {
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+
+            const img = document.createElement('img');
+            img.src = `images/gallery-${i}.jpg`;
+            img.alt = `Gallery image ${i}`;
+            img.draggable = false;
+
+            if (i % 2 === 1) {
+                item.classList.add('left');
+            } else {
+                item.classList.add('right');
+            }
+
+            if ([1, 2, 7, 8, 13, 14, 19, 20, 25, 26, 31, 32, 37, 38, 43, 44, 49, 50, 55, 56].includes(i)) {
+                item.classList.add('small');
+            }
+
+            if ([6, 12, 18, 24, 30, 36, 42, 48, 54, 60].includes(i)) {
+                item.classList.add('feature');
+                item.classList.remove('small', 'left', 'right');
+            }
+
+            img.onload = function() {
                 const ratio = img.naturalWidth / img.naturalHeight;
 
                 if (ratio > 1.25) {
                     item.classList.add('wide');
-                    item.classList.remove('narrow-left', 'narrow-right', 'offset-small', 'offset-large');
+                    item.classList.remove('small', 'left', 'right', 'feature');
                 }
-            });
+            };
+
+            img.onerror = function() {
+                item.remove();
+            };
+
+            item.appendChild(img);
+            gallery.appendChild(item);
+        }
+
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (
+                e.key === 'F12' ||
+                (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) ||
+                (e.ctrlKey && e.key.toUpperCase() === 'U') ||
+                (e.metaKey && e.altKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))
+            ) {
+                e.preventDefault();
+            }
         });
     </script>
 
