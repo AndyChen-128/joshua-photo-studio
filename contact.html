@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Joshua Photo Studio</title>
-     <link rel="icon" type="image/png" href="favicon.png">
-</head>
 
     <style>
         * {
@@ -31,6 +29,9 @@
             justify-content: center;
             gap: 42px;
             z-index: 10;
+            background: rgba(241, 242, 239, 0.78);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .nav a {
@@ -114,6 +115,26 @@
             gap: 24px;
         }
 
+        .contact-name-wrap {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .contact-icon {
+            width: 22px;
+            height: 22px;
+            color: rgba(31, 31, 31, 0.72);
+            flex-shrink: 0;
+        }
+
+        .contact-icon svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            stroke: currentColor;
+        }
+
         .contact-name {
             font-size: 18px;
             font-weight: 500;
@@ -127,6 +148,7 @@
 
         .contact-detail {
             margin-top: 10px;
+            padding-left: 36px;
             font-size: 14px;
             letter-spacing: 0.4px;
             color: rgba(31, 31, 31, 0.55);
@@ -164,7 +186,6 @@
             }
 
             .page {
-                min-height: 100vh;
                 padding: 110px 24px 70px;
                 display: grid;
                 place-items: center;
@@ -190,6 +211,15 @@
 
             .contact-name {
                 font-size: 16px;
+            }
+
+            .contact-icon {
+                width: 20px;
+                height: 20px;
+            }
+
+            .contact-detail {
+                padding-left: 34px;
             }
         }
     </style>
@@ -222,9 +252,18 @@
 
             <div>
                 <div class="contact-panel">
+
                     <a href="mailto:fiworkjoshua@gmail.com?subject=Photography Inquiry" class="contact-row">
                         <div class="contact-row-top">
-                            <div class="contact-name">EMAIL</div>
+                            <div class="contact-name-wrap">
+                                <div class="contact-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                                        <path d="M4 7l8 6 8-6"></path>
+                                    </svg>
+                                </div>
+                                <div class="contact-name">EMAIL</div>
+                            </div>
                             <div class="contact-arrow">→</div>
                         </div>
                         <div class="contact-detail">fiworkjoshua@gmail.com</div>
@@ -232,7 +271,16 @@
 
                     <a href="https://instagram.com/joshua.photo.studio/" target="_blank" rel="noopener noreferrer" class="contact-row">
                         <div class="contact-row-top">
-                            <div class="contact-name">INSTAGRAM</div>
+                            <div class="contact-name-wrap">
+                                <div class="contact-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="4" y="4" width="16" height="16" rx="5"></rect>
+                                        <circle cx="12" cy="12" r="3.5"></circle>
+                                        <circle cx="17" cy="7" r="0.8" fill="currentColor" stroke="none"></circle>
+                                    </svg>
+                                </div>
+                                <div class="contact-name">INSTAGRAM</div>
+                            </div>
                             <div class="contact-arrow">→</div>
                         </div>
                         <div class="contact-detail">@joshua.photo.studio</div>
@@ -240,11 +288,22 @@
 
                     <a href="https://xhslink.com/m/3jYdLtK2ZA2" target="_blank" rel="noopener noreferrer" class="contact-row">
                         <div class="contact-row-top">
-                            <div class="contact-name">REDNOTE</div>
+                            <div class="contact-name-wrap">
+                                <div class="contact-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="5" y="4" width="14" height="16" rx="2"></rect>
+                                        <path d="M8 8h8"></path>
+                                        <path d="M8 12h8"></path>
+                                        <path d="M8 16h5"></path>
+                                    </svg>
+                                </div>
+                                <div class="contact-name">REDNOTE</div>
+                            </div>
                             <div class="contact-arrow">→</div>
                         </div>
                         <div class="contact-detail">Follow Joshua Photo Studio on Rednote</div>
                     </a>
+
                 </div>
 
                 <p class="note">
