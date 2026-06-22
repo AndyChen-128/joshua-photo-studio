@@ -9,7 +9,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Montserrat:wght@300;400;500&display=swap');
 
         body {
-            font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-family: "Montserrat", sans-serif;
             margin: 0;
             padding: 0;
             height: 100vh;
@@ -34,6 +34,30 @@
             z-index: 1;
         }
 
+        .nav {
+            position: fixed;
+            top: 34px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            display: flex;
+            gap: 42px;
+        }
+
+        .nav a {
+            font-family: "Bodoni Moda", Georgia, serif;
+            color: rgba(255, 255, 255, 0.82);
+            text-decoration: none;
+            font-size: 15px;
+            letter-spacing: 2px;
+            transition: color 0.35s ease, text-shadow 0.35s ease;
+        }
+
+        .nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 16px rgba(255,255,255,0.8);
+        }
+
         .content {
             text-align: center;
             color: #fff;
@@ -53,7 +77,6 @@
             display: flex;
             justify-content: center;
             gap: 32px;
-            margin-top: 0;
         }
 
         .social-item {
@@ -61,19 +84,17 @@
             text-decoration: none;
             color: rgba(255, 255, 255, 0.82);
             font-size: 17px;
-            font-weight: 400;
             letter-spacing: 1.8px;
             transition: color 0.35s ease, text-shadow 0.35s ease, letter-spacing 0.35s ease;
         }
 
         .social-item:hover {
-            color: rgba(255, 255, 255, 1);
+            color: #fff;
             letter-spacing: 2.8px;
             text-shadow:
                 0 0 8px rgba(255, 255, 255, 0.85),
                 0 0 20px rgba(210, 230, 255, 0.75),
-                0 0 36px rgba(255, 210, 245, 0.55),
-                0 0 52px rgba(255, 240, 190, 0.35);
+                0 0 36px rgba(255, 210, 245, 0.55);
         }
 
         .dream-trail {
@@ -95,37 +116,16 @@
             height: var(--height);
             transform: translate(-50%, -50%);
             border-radius: 999px;
-            background: linear-gradient(
-                90deg,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(190, 225, 255, 0.24) 14%,
-                rgba(255, 255, 255, 0.95) 34%,
-                rgba(255, 205, 245, 0.62) 52%,
-                rgba(220, 255, 245, 0.52) 68%,
-                rgba(255, 245, 180, 0.38) 82%,
-                rgba(255, 255, 255, 0) 100%
+            background: linear-gradient(90deg,
+                rgba(255,255,255,0) 0%,
+                rgba(190,225,255,0.24) 14%,
+                rgba(255,255,255,0.95) 34%,
+                rgba(255,205,245,0.62) 52%,
+                rgba(220,255,245,0.52) 68%,
+                rgba(255,245,180,0.38) 82%,
+                rgba(255,255,255,0) 100%
             );
             filter: blur(var(--blur));
-        }
-
-        .dream-trail::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            width: calc(var(--length) * 0.55);
-            height: calc(var(--height) * 8);
-            transform: translate(-50%, -50%);
-            border-radius: 999px;
-            background: radial-gradient(
-                ellipse,
-                rgba(255, 255, 255, 0.45) 0%,
-                rgba(210, 230, 255, 0.25) 32%,
-                rgba(255, 210, 245, 0.18) 55%,
-                rgba(255, 240, 190, 0.1) 68%,
-                rgba(255, 255, 255, 0) 78%
-            );
-            filter: blur(18px);
         }
 
         @keyframes dreamFade {
@@ -144,47 +144,27 @@
             }
         }
 
-        .soft-flash {
-            position: fixed;
-            width: 14px;
-            height: 14px;
-            pointer-events: none;
-            z-index: 9997;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            background: radial-gradient(
-                circle,
-                rgba(255, 255, 255, 0.95) 0%,
-                rgba(220, 235, 255, 0.55) 28%,
-                rgba(255, 210, 245, 0.35) 52%,
-                rgba(255, 240, 190, 0.18) 66%,
-                rgba(255, 255, 255, 0) 78%
-            );
-            mix-blend-mode: screen;
-            filter: blur(2px);
-            animation: flashFade 0.75s ease-out forwards;
-        }
-
-        @keyframes flashFade {
-            0% {
-                opacity: 0.95;
-                transform: translate(-50%, -50%) scale(1);
-            }
-
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(10);
-            }
-        }
-
         @media (max-width: 768px) {
             body {
                 cursor: auto;
             }
 
-            .dream-trail,
-            .soft-flash {
+            .dream-trail {
                 display: none;
+            }
+
+            .nav {
+                top: 28px;
+                gap: 22px;
+            }
+
+            .nav a {
+                font-size: 13px;
+                letter-spacing: 1.4px;
+            }
+
+            .logo {
+                width: 130px;
             }
 
             .social-links {
@@ -193,18 +173,18 @@
 
             .social-item {
                 font-size: 15px;
-                letter-spacing: 1.3px;
-            }
-
-            .logo {
-                width: 130px;
-                margin-bottom: 30px;
             }
         }
     </style>
 </head>
 
 <body>
+
+    <nav class="nav">
+        <a href="about.html">ABOUT</a>
+        <a href="galleries.html">GALLERIES</a>
+        <a href="contact.html">CONTACT</a>
+    </nav>
 
     <div class="content">
         <img src="logo.svg" alt="Joshua Photo Studio Logo" class="logo">
@@ -226,10 +206,6 @@
                 createDreamTrail(e.clientX, e.clientY);
                 lastTrailTime = now;
             }
-        });
-
-        document.addEventListener('click', function(e) {
-            createSoftFlash(e.clientX, e.clientY);
         });
 
         function createDreamTrail(x, y) {
@@ -255,19 +231,6 @@
             setTimeout(function() {
                 trail.remove();
             }, 1500);
-        }
-
-        function createSoftFlash(x, y) {
-            const flash = document.createElement('span');
-            flash.className = 'soft-flash';
-            flash.style.left = x + 'px';
-            flash.style.top = y + 'px';
-
-            document.body.appendChild(flash);
-
-            setTimeout(function() {
-                flash.remove();
-            }, 750);
         }
     </script>
 
