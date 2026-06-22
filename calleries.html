@@ -166,7 +166,6 @@
             margin-top: 34px;
         }
 
-        /* 全屏图片浏览 */
         .lightbox {
             position: fixed;
             inset: 0;
@@ -177,6 +176,7 @@
             background: rgba(15, 15, 15, 0.94);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            overflow: hidden;
         }
 
         .lightbox.active {
@@ -193,6 +193,71 @@
             pointer-events: none;
             -webkit-user-drag: none;
             user-drag: none;
+            will-change: transform, opacity;
+        }
+
+        .slide-out-left {
+            animation: slideOutLeft 0.32s ease forwards;
+        }
+
+        .slide-out-right {
+            animation: slideOutRight 0.32s ease forwards;
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.38s ease forwards;
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.38s ease forwards;
+        }
+
+        @keyframes slideOutLeft {
+            from {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateX(-42px) scale(0.985);
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateX(42px) scale(0.985);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-42px) scale(0.985);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(42px) scale(0.985);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
         }
 
         .lightbox-close,
@@ -403,6 +468,9 @@
 
         const maxImages = 120;
         let currentIndex = 0;
+        let isSliding = false;
+        let touchStartX = 0;
+        let touchEndX = 0;
 
         const layoutPattern = [
             'left',
@@ -483,12 +551,12 @@
                 currentIndex = 0;
             }
 
-            updateLightbox();
+            updateLightboxInstant();
             lightbox.classList.add('active');
             document.body.classList.add('no-scroll');
         }
 
-        function updateLightbox() {
+        function updateLightboxInstant() {
             const images = getLoadedImages();
 
             if (images.length === 0) return;
@@ -501,36 +569,106 @@
                 currentIndex = 0;
             }
 
+            lightboxImage.className = 'lightbox-image';
             lightboxImage.src = images[currentIndex].src;
             lightboxImage.alt = images[currentIndex].alt;
-            lightboxCounter.textContent = String(currentIndex + 1).padStart(2, '0') + ' / ' + String(images.length).padStart(2, '0');
+            updateCounter(images.length);
+        }
+
+        function slideTo(direction) {
+            const images = getLoadedImages();
+
+            if (images.length === 0 || isSliding) return;
+
+            isSliding = true;
+
+            const outClass = direction === 'next' ? 'slide-out-left' : 'slide-out-right';
+            const inClass = direction === 'next' ? 'slide-in-right' : 'slide-in-left';
+
+            lightboxImage.className = 'lightbox-image ' + outClass;
+
+            setTimeout(function() {
+                if (direction === 'next') {
+                    currentIndex++;
+                } else {
+                    currentIndex--;
+                }
+
+                if (currentIndex < 0) {
+                    currentIndex = images.length - 1;
+                }
+
+                if (currentIndex >= images.length) {
+                    currentIndex = 0;
+                }
+
+                lightboxImage.className = 'lightbox-image';
+                lightboxImage.src = images[currentIndex].src;
+                lightboxImage.alt = images[currentIndex].alt;
+                updateCounter(images.length);
+
+                requestAnimationFrame(function() {
+                    lightboxImage.className = 'lightbox-image ' + inClass;
+                });
+
+                setTimeout(function() {
+                    lightboxImage.className = 'lightbox-image';
+                    isSliding = false;
+                }, 390);
+            }, 310);
+        }
+
+        function updateCounter(total) {
+            lightboxCounter.textContent =
+                String(currentIndex + 1).padStart(2, '0') +
+                ' / ' +
+                String(total).padStart(2, '0');
         }
 
         function closeLightbox() {
             lightbox.classList.remove('active');
             document.body.classList.remove('no-scroll');
             lightboxImage.src = '';
-        }
-
-        function showPrev() {
-            currentIndex--;
-            updateLightbox();
-        }
-
-        function showNext() {
-            currentIndex++;
-            updateLightbox();
+            lightboxImage.className = 'lightbox-image';
+            isSliding = false;
         }
 
         lightboxClose.addEventListener('click', closeLightbox);
-        lightboxPrev.addEventListener('click', showPrev);
-        lightboxNext.addEventListener('click', showNext);
+
+        lightboxPrev.addEventListener('click', function() {
+            slideTo('prev');
+        });
+
+        lightboxNext.addEventListener('click', function() {
+            slideTo('next');
+        });
 
         lightbox.addEventListener('click', function(e) {
             if (e.target === lightbox) {
                 closeLightbox();
             }
         });
+
+        lightbox.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        lightbox.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const distance = touchEndX - touchStartX;
+
+            if (Math.abs(distance) < 50) return;
+
+            if (distance < 0) {
+                slideTo('next');
+            } else {
+                slideTo('prev');
+            }
+        }
 
         document.addEventListener('keydown', function(e) {
             if (lightbox.classList.contains('active')) {
@@ -539,11 +677,11 @@
                 }
 
                 if (e.key === 'ArrowLeft') {
-                    showPrev();
+                    slideTo('prev');
                 }
 
                 if (e.key === 'ArrowRight') {
-                    showNext();
+                    slideTo('next');
                 }
             }
 
