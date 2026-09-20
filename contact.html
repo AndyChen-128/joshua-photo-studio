@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Contact | Joshua Photo Studio</title>
+
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
@@ -13,7 +15,6 @@
 
         body {
             margin: 0;
-            padding: 0;
             min-height: 100vh;
             background-color: #F1F2EF;
             color: #1f1f1f;
@@ -24,24 +25,26 @@
             position: fixed;
             top: 0;
             left: 0;
+            z-index: 10;
             width: 100%;
             padding: 34px 0;
             display: flex;
             justify-content: center;
             gap: 42px;
-            z-index: 10;
             background: rgba(241, 242, 239, 0.78);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
 
         .nav a {
-            text-decoration: none;
             color: rgba(31, 31, 31, 0.75);
             font-size: 15px;
             font-weight: 500;
             letter-spacing: 1px;
-            transition: color 0.3s ease, letter-spacing 0.3s ease;
+            text-decoration: none;
+            transition:
+                color 0.3s ease,
+                letter-spacing 0.3s ease;
         }
 
         .nav a:hover {
@@ -60,35 +63,39 @@
         .contact-layout {
             width: 100%;
             max-width: 1080px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
             gap: 90px;
             align-items: center;
-            margin: 0 auto;
         }
 
         .eyebrow {
+            margin-bottom: 28px;
+            color: rgba(31, 31, 31, 0.5);
             font-size: 13px;
             font-weight: 500;
             letter-spacing: 2.6px;
-            color: rgba(31, 31, 31, 0.5);
-            margin-bottom: 28px;
         }
 
         .contact-title {
+            margin: 0 0 36px;
             font-size: 72px;
             font-weight: 300;
             line-height: 1.05;
             letter-spacing: -1px;
-            margin: 0 0 36px;
         }
 
         .contact-text {
             max-width: 520px;
+            margin: 0;
+            color: rgba(31, 31, 31, 0.72);
             font-size: 17px;
             line-height: 2;
-            color: rgba(31, 31, 31, 0.72);
-            margin: 0;
+        }
+
+        .mobile-intro {
+            display: none;
         }
 
         .contact-panel {
@@ -97,11 +104,13 @@
 
         .contact-row {
             display: block;
-            text-decoration: none;
-            color: #1f1f1f;
             padding: 28px 0;
             border-bottom: 1px solid rgba(31, 31, 31, 0.22);
-            transition: padding-left 0.35s ease, opacity 0.35s ease;
+            color: #1f1f1f;
+            text-decoration: none;
+            transition:
+                padding-left 0.35s ease,
+                opacity 0.35s ease;
         }
 
         .contact-row:hover {
@@ -130,9 +139,9 @@
         }
 
         .contact-icon svg {
+            display: block;
             width: 100%;
             height: 100%;
-            display: block;
             stroke: currentColor;
         }
 
@@ -150,24 +159,24 @@
         .contact-detail {
             margin-top: 10px;
             padding-left: 36px;
+            color: rgba(31, 31, 31, 0.55);
             font-size: 14px;
             letter-spacing: 0.4px;
-            color: rgba(31, 31, 31, 0.55);
         }
 
         .note {
             margin-top: 36px;
+            color: rgba(31, 31, 31, 0.5);
             font-size: 13px;
             line-height: 1.8;
             letter-spacing: 0.5px;
-            color: rgba(31, 31, 31, 0.5);
         }
 
         @media (max-width: 900px) {
             .contact-layout {
+                max-width: 680px;
                 grid-template-columns: 1fr;
                 gap: 60px;
-                max-width: 680px;
             }
 
             .contact-title {
@@ -175,52 +184,108 @@
             }
         }
 
+        /* MOBILE */
         @media (max-width: 768px) {
             .nav {
+                padding: 21px 0;
                 gap: 22px;
-                padding: 28px 0;
             }
 
             .nav a {
-                font-size: 13px;
+                font-size: 12px;
                 letter-spacing: 0.8px;
             }
 
             .page {
-                padding: 110px 24px 70px;
-                display: grid;
-                place-items: center;
+                min-height: auto;
+                padding: 92px 18px 40px;
+                display: block;
             }
 
             .contact-layout {
-                gap: 50px;
+                max-width: 520px;
+                gap: 22px;
             }
 
-            .contact-title {
-                font-size: 46px;
-                margin-bottom: 28px;
+            /* 隐藏桌面端的大段介绍 */
+            .contact-intro {
+                display: none;
             }
 
-            .contact-text {
-                font-size: 15px;
-                line-height: 1.9;
+            /* 移动端精简标题 */
+            .mobile-intro {
+                display: block;
+                padding: 0 4px;
+            }
+
+            .mobile-eyebrow {
+                margin: 0 0 8px;
+                color: rgba(31, 31, 31, 0.48);
+                font-size: 11px;
+                font-weight: 600;
+                letter-spacing: 2.4px;
+            }
+
+            .mobile-title {
+                margin: 0;
+                font-size: 34px;
+                font-weight: 300;
+                line-height: 1.15;
+                letter-spacing: -0.7px;
+            }
+
+            /* 突出联系方式区域 */
+            .contact-panel {
+                padding: 0 18px;
+                border: 1px solid rgba(31, 31, 31, 0.12);
+                border-radius: 18px;
+                background: rgba(255, 255, 255, 0.58);
+                box-shadow: 0 14px 40px rgba(31, 31, 31, 0.06);
+                overflow: hidden;
             }
 
             .contact-row {
-                padding: 24px 0;
+                padding: 19px 0;
+            }
+
+            .contact-row:first-child {
+                border-top: none;
+            }
+
+            .contact-row:hover {
+                padding-left: 7px;
+            }
+
+            .contact-name-wrap {
+                gap: 12px;
             }
 
             .contact-name {
-                font-size: 16px;
+                font-size: 15px;
+                font-weight: 600;
+                letter-spacing: 1.3px;
             }
 
             .contact-icon {
-                width: 20px;
-                height: 20px;
+                width: 21px;
+                height: 21px;
+            }
+
+            .contact-arrow {
+                font-size: 19px;
             }
 
             .contact-detail {
-                padding-left: 34px;
+                margin-top: 6px;
+                padding-left: 33px;
+                font-size: 12px;
+                line-height: 1.4;
+            }
+
+            .note {
+                margin: 18px 4px 0;
+                font-size: 11px;
+                line-height: 1.6;
             }
         }
     </style>
@@ -237,6 +302,7 @@
     <main class="page">
         <section class="contact-layout">
 
+            <!-- 桌面端介绍 -->
             <div class="contact-intro">
                 <div class="eyebrow">CONTACT</div>
 
@@ -247,68 +313,198 @@
                 </h1>
 
                 <p class="contact-text">
-                    For wedding, portrait, couple, or editorial photography inquiries, please reach out through email or social media.
+                    For wedding, portrait, couple, or editorial photography inquiries,
+                    please reach out through email or social media.
                 </p>
+            </div>
+
+            <!-- 移动端精简介绍 -->
+            <div class="mobile-intro">
+                <div class="mobile-eyebrow">CONTACT</div>
+                <h1 class="mobile-title">Let’s connect.</h1>
             </div>
 
             <div>
                 <div class="contact-panel">
 
-                    <a href="mailto:fiworkjoshua@gmail.com?subject=Photography Inquiry" class="contact-row">
+                    <!-- 1. WECHAT -->
+                    <a
+                        href="weixin.png"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="contact-row"
+                    >
                         <div class="contact-row-top">
                             <div class="contact-name-wrap">
                                 <div class="contact-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-                                        <path d="M4 7l8 6 8-6"></path>
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke-width="1.6"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <path d="M14.5 9.5c0 3.04-2.8 5.5-6.25 5.5a7.1 7.1 0 0 1-2.2-.35L3 16l1-2.55A5.1 5.1 0 0 1 2 9.5C2 6.46 4.8 4 8.25 4s6.25 2.46 6.25 5.5Z"></path>
+
+                                        <path d="M10 14.8c.65 2.1 2.9 3.7 5.65 3.7.75 0 1.45-.12 2.1-.35L21 19.5l-1-2.55a4.6 4.6 0 0 0 1.5-3.35c0-2.75-2.55-5-5.7-5-.48 0-.95.05-1.4.15"></path>
+
+                                        <circle cx="6.5" cy="8.5" r="0.7" fill="currentColor" stroke="none"></circle>
+                                        <circle cx="10.5" cy="8.5" r="0.7" fill="currentColor" stroke="none"></circle>
+                                        <circle cx="14" cy="12.5" r="0.7" fill="currentColor" stroke="none"></circle>
+                                        <circle cx="17.5" cy="12.5" r="0.7" fill="currentColor" stroke="none"></circle>
                                     </svg>
                                 </div>
-                                <div class="contact-name">EMAIL</div>
+
+                                <div class="contact-name">WECHAT</div>
                             </div>
+
                             <div class="contact-arrow">→</div>
                         </div>
-                        <div class="contact-detail">fiworkjoshua@gmail.com</div>
+
+                        <div class="contact-detail">
+                            Scan the QR code to connect
+                        </div>
                     </a>
 
-                    <a href="https://instagram.com/joshua.photo.studio/" target="_blank" rel="noopener noreferrer" class="contact-row">
+                    <!-- 2. WHATSAPP -->
+                    <a
+                        href="whatsapp.png"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="contact-row"
+                    >
                         <div class="contact-row-top">
                             <div class="contact-name-wrap">
                                 <div class="contact-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke-width="1.6"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5Z"></path>
+                                        <path d="M9 8.5c.3 2.8 2 4.5 4.8 5"></path>
+                                        <path d="M9 8.5l1.3-.5 1 2-1 .7"></path>
+                                        <path d="M13.8 13.5l.7-1 2 1-.5 1.3"></path>
+                                    </svg>
+                                </div>
+
+                                <div class="contact-name">WHATSAPP</div>
+                            </div>
+
+                            <div class="contact-arrow">→</div>
+                        </div>
+
+                        <div class="contact-detail">
+                            Scan the QR code to contact us
+                        </div>
+                    </a>
+
+                    <!-- 3. INSTAGRAM -->
+                    <a
+                        href="https://instagram.com/joshua.photo.studio/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="contact-row"
+                    >
+                        <div class="contact-row-top">
+                            <div class="contact-name-wrap">
+                                <div class="contact-icon">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke-width="1.6"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
                                         <rect x="4" y="4" width="16" height="16" rx="5"></rect>
                                         <circle cx="12" cy="12" r="3.5"></circle>
                                         <circle cx="17" cy="7" r="0.8" fill="currentColor" stroke="none"></circle>
                                     </svg>
                                 </div>
+
                                 <div class="contact-name">INSTAGRAM</div>
                             </div>
+
                             <div class="contact-arrow">→</div>
                         </div>
-                        <div class="contact-detail">@joshua.photo.studio</div>
+
+                        <div class="contact-detail">
+                            @joshua.photo.studio
+                        </div>
                     </a>
 
-                    <a href="https://xhslink.com/m/3jYdLtK2ZA2" target="_blank" rel="noopener noreferrer" class="contact-row">
+                    <!-- 4. REDNOTE -->
+                    <a
+                        href="https://xhslink.com/m/3jYdLtK2ZA2"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="contact-row"
+                    >
                         <div class="contact-row-top">
                             <div class="contact-name-wrap">
                                 <div class="contact-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke-width="1.6"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
                                         <rect x="5" y="4" width="14" height="16" rx="2"></rect>
                                         <path d="M8 8h8"></path>
                                         <path d="M8 12h8"></path>
                                         <path d="M8 16h5"></path>
                                     </svg>
                                 </div>
+
                                 <div class="contact-name">REDNOTE</div>
                             </div>
+
                             <div class="contact-arrow">→</div>
                         </div>
-                        <div class="contact-detail">Follow Joshua Photo Studio on Rednote</div>
+
+                        <div class="contact-detail">
+                            Follow Joshua Photo Studio
+                        </div>
+                    </a>
+
+                    <!-- 5. EMAIL -->
+                    <a
+                        href="mailto:fiworkjoshua@gmail.com?subject=Photography Inquiry"
+                        class="contact-row"
+                    >
+                        <div class="contact-row-top">
+                            <div class="contact-name-wrap">
+                                <div class="contact-icon">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke-width="1.6"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                                        <path d="M4 7l8 6 8-6"></path>
+                                    </svg>
+                                </div>
+
+                                <div class="contact-name">EMAIL</div>
+                            </div>
+
+                            <div class="contact-arrow">→</div>
+                        </div>
+
+                        <div class="contact-detail">
+                            fiworkjoshua@gmail.com
+                        </div>
                     </a>
 
                 </div>
 
                 <p class="note">
-                    Based in Italy. Available for selected photography projects, weddings, portraits, and visual storytelling.
+                    Based in Italy · Available for weddings, portraits and visual storytelling.
                 </p>
             </div>
 
